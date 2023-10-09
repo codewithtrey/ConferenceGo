@@ -1,4 +1,4 @@
-function createCard(title, description, pictureUrl) {
+function createCard(title, description, pictureUrl, starts, ends) {
     return `
       <div class="col-md-4 mb-3">
         <div class="card shadow">
@@ -6,6 +6,9 @@ function createCard(title, description, pictureUrl) {
           <div class="card-body">
             <h5 class="card-title">${title}</h5>
             <p class="card-text">${description}</p>
+          </div>
+          <div class="card-footer text-muted">
+            ${starts} - ${ends}
           </div>
         </div>
       </div>
@@ -32,10 +35,13 @@ function createCard(title, description, pictureUrl) {
           const detailResponse = await fetch(detailUrl);
           if (detailResponse.ok) {
             const details = await detailResponse.json();
+            console.log(details)
             const title = details.conference.name;
+            const starts = details.conference.starts;
+            const ends = details.conference.ends;
             const description = details.conference.description;
             const pictureUrl = details.conference.location.picture_url;
-            const html = createCard(title, description, pictureUrl);
+            const html = createCard(title, description, pictureUrl, starts, ends);
             const row = document.querySelector('#conferences-row');
             row.innerHTML += html;
           }
