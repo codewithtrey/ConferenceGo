@@ -1,14 +1,26 @@
-function createCard(title, description, pictureUrl, starts, ends) {
+function convertDate(longDate){
+    const dateObject = new Date(longDate);
+    const month = dateObject.getMonth();
+    const day = dateObject.getDate();
+    const year = dateObject.getFullYear() % 100;
+    return `${month}/${day < 10 ? '0' : ''}${day}/${year < 10 ? '0': ''}${year}`;
+}
+
+
+function createCard(title, description, pictureUrl, starts, ends, locationName) {
+    const shortStarts = convertDate(starts)
+    const shortEnds = convertDate(ends)
     return `
       <div class="col-md-4 mb-3">
         <div class="card shadow">
           <img src="${pictureUrl}" class="card-img-top">
           <div class="card-body">
             <h5 class="card-title">${title}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">${locationName}</h6>
             <p class="card-text">${description}</p>
           </div>
           <div class="card-footer text-muted">
-            ${starts} - ${ends}
+            ${shortStarts} - ${shortEnds}
           </div>
         </div>
       </div>
@@ -41,7 +53,8 @@ function createCard(title, description, pictureUrl, starts, ends) {
             const ends = details.conference.ends;
             const description = details.conference.description;
             const pictureUrl = details.conference.location.picture_url;
-            const html = createCard(title, description, pictureUrl, starts, ends);
+            const locationName = details.conference.location;
+            const html = createCard(title, description, pictureUrl, starts, ends, location, locationName);
             const row = document.querySelector('#conferences-row');
             row.innerHTML += html;
           }
