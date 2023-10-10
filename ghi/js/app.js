@@ -53,8 +53,8 @@ function createCard(title, description, pictureUrl, starts, ends, locationName) 
             const ends = details.conference.ends;
             const description = details.conference.description;
             const pictureUrl = details.conference.location.picture_url;
-            const locationName = details.conference.location;
-            const html = createCard(title, description, pictureUrl, starts, ends, location, locationName);
+            const locationName = details.conference.location.name;
+            const html = createCard(title, description, pictureUrl, starts, ends, locationName);
             const row = document.querySelector('#conferences-row');
             row.innerHTML += html;
           }
