@@ -6,10 +6,8 @@ window.addEventListener('DOMContentLoaded', async () => {
 
     if (response.ok) {
       const data = await response.json();
-    console.log(data)
       const selectTag = document.getElementById('state');
       for (let state of data.states) {
-        console.log(state)
         // Create an 'option' element
         const option = document.createElement('option')
         // Set the '.value' property of the option element to the
