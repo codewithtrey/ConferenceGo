@@ -39,6 +39,10 @@ function createCard(title, description, pictureUrl, starts, ends, locationName) 
 
       if (!response.ok) {
         // Figure out what to do when the response is bad
+        document.getElementById("error-alert").innerHTML = "An error occurred.";
+
+        // document.getElementById("error-alert").style.display = "block";
+
       } else {
         const data = await response.json();
 
@@ -47,7 +51,6 @@ function createCard(title, description, pictureUrl, starts, ends, locationName) 
           const detailResponse = await fetch(detailUrl);
           if (detailResponse.ok) {
             const details = await detailResponse.json();
-            console.log(details)
             const title = details.conference.name;
             const starts = details.conference.starts;
             const ends = details.conference.ends;
@@ -62,8 +65,9 @@ function createCard(title, description, pictureUrl, starts, ends, locationName) 
 
       }
     } catch (e) {
-        console.error(e);
       // Figure out what to do if an error is raised
+        document.getElementById("error-alert").style.display = "block";
+        document.getElementById("error-alert").innerHTML = "An error occurred.";
     }
 
   });
