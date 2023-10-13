@@ -11,7 +11,7 @@ function Nav() {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="d-flex flex-row navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <NavLink className="nav-link active" aria-current="page" to="#">Home</NavLink>
+              <NavLink className="nav-link active" aria-current="page" to="/home">Home</NavLink>
             </li>
             <li className="nav-item">
                 <NavLink className="nav-link" aria-current="page" to="/locations/new">New location</NavLink>

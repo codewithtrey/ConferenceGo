@@ -17,13 +17,14 @@ function App(props) {
           <Route path ="locations">
             <Route path="new" element={<LocationForm />} />
           </Route>
+          <Route path ="home">
+            <Route path="" />
+          </Route>
           <Route path ="conferences">
             <Route path="new" element={<ConferenceForm />} />
           </Route>
           <Route path ="attendees">
-            <Route element={<AttendeesList />} />
-          </Route>
-          <Route path ="attendees">
+            <Route path="" index element={<AttendeesList attendees={props.attendees} />} />
             <Route path="new" element={<AttendConferenceForm />} />
           </Route>
         </Routes>
