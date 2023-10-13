@@ -3,21 +3,32 @@ import AttendeesList from './AttendeesList';
 import LocationForm from './LocationForm';
 import ConferenceForm from './ConferenceForm'
 import AttendConferenceForm from './AttendConferenceForm'
+import {BrowserRouter, Route, Routes } from "react-router-dom"
 
 function App(props) {
   if (props.attendees === undefined) {
     return null;
   }
   return (
-    <>
+    <BrowserRouter>
       <Nav />
       <div className="container">
-        <LocationForm />
-        <ConferenceForm />
-        <AttendConferenceForm />
-        <AttendeesList attendees={props.attendees} />
+        <Routes>
+          <Route path ="locations">
+            <Route path="new" element={<LocationForm />} />
+          </Route>
+          <Route path ="conferences">
+            <Route path="new" element={<ConferenceForm />} />
+          </Route>
+          <Route path ="attendees">
+            <Route element={<AttendeesList />} />
+          </Route>
+          <Route path ="attendees">
+            <Route path="new" element={<AttendConferenceForm />} />
+          </Route>
+        </Routes>
       </div>
-    </>
+    </BrowserRouter>
   );
 }
 
