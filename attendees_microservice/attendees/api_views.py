@@ -13,7 +13,10 @@ class ConferenceVODetailEncoder(ModelEncoder):
 
 class AttendeeListEncoder(ModelEncoder):
     model = Attendee
-    properties = ["name"]
+    properties = [
+        "name",
+        "id",
+    ]
 
     def get_extra_data(self, o):
         return {"conference": o.conference.name}
@@ -89,6 +92,7 @@ def api_list_attendees(request, conference_vo_id=None):
         )
 
 
+@require_http_methods(["DELETE", "GET"])
 def api_show_attendee(request, pk):
     """
     Returns the details for the Attendee model specified
@@ -109,9 +113,17 @@ def api_show_attendee(request, pk):
         }
     }
     """
-    attendee = Attendee.objects.get(id=pk)
-    return JsonResponse(
-        attendee,
-        encoder=AttendeeDetailEncoder,
-        safe=False,
-    )
+    if request.method == "GET":
+        attendee = Attendee.objects.get(id=pk)
+        return JsonResponse(
+            attendee,
+            encoder=AttendeeDetailEncoder,
+            safe=False,
+        )
+    else:
+       count, _ = Attendee.objects.filter(id=pk).delete()
+       return JsonResponse(
+           {
+               "deleted": count > 0
+           }
+       )

@@ -8,9 +8,6 @@ import {BrowserRouter, Route, Routes } from "react-router-dom"
 import MainPage from './MainPage';
 
 function App(props) {
-  if (props.attendees === undefined) {
-    return null;
-  }
   return (
     <BrowserRouter>
       <Nav />
