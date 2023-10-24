@@ -1,33 +1,35 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 function AttendeesList() {
   const [attendees, setAttendee] = useState([]);
 
-  async function handleDelete(event, attendeeId){
+  async function handleDelete(event, attendeeId) {
     const fetchOptions = {
-      method: "DELETE"
-    }
-    const request = await fetch(`http://localhost:8001/api/attendees/${attendeeId}/`, fetchOptions)
+      method: "DELETE",
+    };
+    const request = await fetch(
+      `http://localhost:8001/api/attendees/${attendeeId}/`,
+      fetchOptions
+    );
 
     if (request.ok) {
-      loadAttendees()
+      loadAttendees();
     }
   }
 
   async function loadAttendees() {
-    const response = await fetch('http://localhost:8001/api/attendees/');
+    const response = await fetch("http://localhost:8001/api/attendees/");
     if (response.ok) {
       const data = await response.json();
-      setAttendee(data.attendees)
+      setAttendee(data.attendees);
     } else {
       console.error(response);
     }
   }
 
-
-useEffect(() => {
-  loadAttendees()
-}, [])
+  useEffect(() => {
+    loadAttendees();
+  }, []);
 
   return (
     <table className="table table-striped">
@@ -38,12 +40,16 @@ useEffect(() => {
         </tr>
       </thead>
       <tbody>
-        {attendees?.map(attendee => {
+        {attendees?.map((attendee) => {
           return (
             <tr key={attendee.href}>
-              <td>{ attendee.name }</td>
-              <td>{ attendee.conference }</td>
-              <td><button onClick={(e) => handleDelete(e, attendee.id)}>Delete</button></td>
+              <td>{attendee.name}</td>
+              <td>{attendee.conference}</td>
+              <td>
+                <button onClick={(e) => handleDelete(e, attendee.id)}>
+                  Delete
+                </button>
+              </td>
             </tr>
           );
         })}
