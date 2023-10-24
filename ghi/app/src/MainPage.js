@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 function ConferenceColumn(props) {
@@ -11,6 +11,7 @@ function ConferenceColumn(props) {
             <img
               src={conference.location.picture_url}
               className="card-img-top"
+              alt="Location of conference"
             />
             <div className="card-body">
               <h5 className="card-title">{conference.name}</h5>
@@ -30,10 +31,10 @@ function ConferenceColumn(props) {
   );
 }
 
-const MainPage = (props) => {
+function MainPage(props) {
   const [conferenceColumns, setConferenceColumns] = useState([[], [], []]);
 
-  const fetchData = async () => {
+  async function getConferences() {
     const url = "http://localhost:8000/api/conferences/";
 
     try {
@@ -48,14 +49,13 @@ const MainPage = (props) => {
         }
 
         const responses = await Promise.all(requests);
-
-        const columns = [[], [], []];
+        const conferenceColumns = [[], [], []];
 
         let i = 0;
         for (const conferenceResponse of responses) {
           if (conferenceResponse.ok) {
             const details = await conferenceResponse.json();
-            columns[i].push(details);
+            conferenceColumns[i].push(details);
             i = i + 1;
             if (i > 2) {
               i = 0;
@@ -64,16 +64,15 @@ const MainPage = (props) => {
             console.error(conferenceResponse);
           }
         }
-
-        setConferenceColumns(columns);
+        setConferenceColumns(conferenceColumns);
       }
     } catch (e) {
       console.error(e);
     }
-  };
+  }
 
   useEffect(() => {
-    fetchData();
+    getConferences();
   }, []);
 
   return (
@@ -111,6 +110,6 @@ const MainPage = (props) => {
       </div>
     </>
   );
-};
+}
 
 export default MainPage;
