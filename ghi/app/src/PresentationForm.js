@@ -35,8 +35,6 @@ function PresentationForm() {
     data.synopsis = synopsis;
     data.conference = conference;
 
-    console.log(data);
-
     const conferenceId = data.conference;
 
     const presentationUrl = `http://localhost:8000/api/conferences/${conferenceId}/presentations/`;
@@ -50,7 +48,6 @@ function PresentationForm() {
     const response = await fetch(presentationUrl, fetchConfig);
     if (response.ok) {
       const newConference = await response.json();
-      console.log(newConference);
 
       setName("");
       setEmail("");
