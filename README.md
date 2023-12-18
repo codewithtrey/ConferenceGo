@@ -13,8 +13,20 @@
 [![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
 
 # Getting the app running
-1. Git clone into your local repository: git clone (repo)
-2. Change directory: cd eventpro
-3. Build the image: docker compose build
-4. Run the containers: docker compose up
+1. Git clone into your local repository:
+```sh
+git clone (repo)
+```
+2. Change directory:
+```sh
+cd eventpro
+```
+3. Build the image:
+```sh
+docker compose build
+```
+4. Run the containers:
+```sh
+docker compose up
+```
 5. Open browser to localhost
